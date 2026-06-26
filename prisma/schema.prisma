@@ -13,17 +13,21 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+  id         Int       @id @default(autoincrement())
+  username   String    @unique
+  password   String
+
+  file File[]
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+
+model File {
+  id         Int        @id @default(autoincrement())
+  name       String
+  size       Int
+  fileUrl    String
+  createdAt  DateTime   @default(now())
+
+  ownerId Int
+  owner      User       @relation(fields: [ownerId], references: [id])
 }
