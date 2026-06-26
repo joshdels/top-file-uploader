@@ -1,0 +1,7 @@
+1. Authentication - user - password
+2. Can upload file
+3. multer middleware?
+3. crud folders
+4. route- name, size, upload time, download button
+5. cloud supabase
+6. limit certain types/restrict too heavy
