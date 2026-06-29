@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+</head>
+<body>
+    <h1>My Cloud Drive</h1>
+    
+    <% if (files && files.length > 0) { %>
+
+        <% files.map((file) => { %>
+
+            <p> <%= file.name %> | <%= file.size %> | <%= file.fileUrl %> | <%= file.createAt %> </p>
+            <button>Edit</button>
+            <a href="">edit</a>
+            <form action="/delete-file/<%= file.id %>" method="POST">
+                <button type="submit">delete</button>
+            </form>
+
+        <% }) %>
+    
+    <% } else { %>
+        <p> No files </p>
+    <% } %> 
+
+
+    <a href="/add-file">Add file</a>
+
+
+</body>
+</html>

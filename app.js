@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "src/public")));
 
 app.use("/", fileRouter);
-app.use("/", authRouter);
+app.use("/auth", authRouter);
 
 app.listen(3000, (error) => {
   if (error) {

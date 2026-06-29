@@ -15,7 +15,7 @@ function initializePassport() {
           return done(null, false);
         }
 
-        const match = await bcrypt.compare(password, user.passowrd);
+        const match = await bcrypt.compare(password, user.password);
         console.log("match:", match);
 
         if (!match) {

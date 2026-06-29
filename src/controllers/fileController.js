@@ -6,11 +6,24 @@ import {
   updateFile,
 } from "../db/queries.js";
 
+async function getCreateFile(req, res) {
+  res.render("forms/addFile-form");
+}
+
 async function postCreateFile(req, res) {
   try {
-    const { name, size, fileUrl, ownerId } = req.body;
-    const file = await createFile(name, size, fileUrl, ownerId);
-    return file;
+    if (!req.file) {
+      return res.status(400).send("No file uploaded.");
+    }
+
+    const ownerId = req.user.id;
+
+    const { file_name } = req.body;
+    const sizeInBytes = req.file.size;
+
+    // To finish setup laterrrrr
+    await createFile(file_name, sizeInBytes, "testing_url_cloud", ownerId);
+    res.redirect("/");
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -18,9 +31,12 @@ async function postCreateFile(req, res) {
 
 async function postDeleteFile(req, res) {
   try {
-    const { fileId } = req.body;
-    const file = await deleteFile(fileId);
-    return file;
+    const { fileId } = req.params;
+    const fileIdInt = parseInt(fileId, 10);
+
+    await deleteFile(fileIdInt);
+    
+    res.redirect("/");
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -31,7 +47,7 @@ async function getFile(req, res) {
     const { fileId } = req.body;
     const file = await readFile(fileId);
 
-    return file;
+    res.render("path-?", { file: file, user: req.user });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -39,11 +55,14 @@ async function getFile(req, res) {
 
 async function getFiles(req, res) {
   try {
-    const { fileId } = req.body;
-    const files = await readFiles(fileId);
-   
-    res.render()
+    const userId = req.user.id;
+    // to fill later
+    const files = await readFiles();
 
+    res.render("index", {
+      user: req.user,
+      files: files,
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -51,14 +70,22 @@ async function getFiles(req, res) {
 
 async function postUpdateFile(req, res) {
   try {
-    const { fileId, name, size, fileUrl } = req.body;
-    const file = await updateFile(fileId);
+    const { fileId } = req.params;
+    const { name, size, fileUrl } = req.body;
 
-    res.redirect("/")
+    await updateFile(fileId, name, size, fileUrl);
+    res.redirect("/");
     return file;
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 }
 
-export { postCreateFile, postDeleteFile, getFile, getFiles, postUpdateFile };
+export {
+  getCreateFile,
+  postCreateFile,
+  postDeleteFile,
+  getFile,
+  getFiles,
+  postUpdateFile,
+};

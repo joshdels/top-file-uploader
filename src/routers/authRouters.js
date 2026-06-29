@@ -12,6 +12,7 @@ const authRouter = Router();
 authRouter.get("/sign-up", ensureGuest, signupGet);
 authRouter.post("/sign-up", ensureGuest, signupPost);
 authRouter.get("/log-in", ensureGuest, loginGet);
+
 authRouter.post(
   "/log-in",
   passport.authenticate("local", {

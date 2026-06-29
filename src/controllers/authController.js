@@ -20,6 +20,10 @@ async function loginGet(req, res) {
   res.render("forms/login-form");
 }
 
+async function loginPost(req, res) {
+  const { username, password } = req.body;
+}
+
 async function logoutGet(req, res, next) {
   req.logout((err) => {
     if (err) {

@@ -1,18 +1,31 @@
 import { Router } from "express";
+import multer from "multer";
 import {
-  postCreateFile,
-  postDeleteFile,
-  getFile,
   getFiles,
+  getFile,
+  postCreateFile,
+  getCreateFile,
+  postDeleteFile,
   postUpdateFile,
 } from "../controllers/fileController.js";
+import {
+  ensureGuest,
+  ensureAuthenticated,
+} from "../middleware/authMiddleware.js";
 
 const fileRouter = Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
-fileRouter.post("/add-file", postCreateFile);
-fileRouter.post("/delete-file/:fileId", postDeleteFile);
-fileRouter.get("/file/:fileId", getFile);
-fileRouter.get("/files", getFiles);
-fileRouter.post("/update-file/:fileId", postUpdateFile);
+fileRouter.get("/", ensureAuthenticated, getFiles);
+fileRouter.get("/file/:fileId", ensureAuthenticated, getFile);
+fileRouter.get("/add-file", ensureAuthenticated, getCreateFile);
+fileRouter.post(
+  "/add-file",
+  upload.single("uploaded_file"),
+  ensureAuthenticated,
+  postCreateFile,
+);
+fileRouter.post("/delete-file/:fileId", ensureAuthenticated, postDeleteFile);
+fileRouter.post("/update-file/:fileId", ensureAuthenticated, postUpdateFile);
 
 export { fileRouter };

@@ -10,3 +10,15 @@
 
 
 DATABASE_URL="postgresql://user:password@localhost:5432/db_name?schema=public"
+
+## Prisma
+
+```
+npx prisma migrate dev --name init
+npx prisma generate
+```
+
+## Prisma Studio
+```
+npx prisma studio
+```
