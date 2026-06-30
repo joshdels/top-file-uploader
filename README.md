@@ -16,8 +16,11 @@ Uses a practice of ORM, Database and Cloud Storage....
 
 ## .env structure
 ```
-DATABASE_URL="postgresql://user:password@localhost:5432/db_name?schema=public"
-SECRET="secret"
+DATABASE_URL=postgresql://user:password@localhost:5432/db_name?schema=public
+SECRET=secret
+
+SUPABASE_URL=url
+SUPABASE_SERVICE_ROLE_KEY=key
 ```
 
 ## Prisma
