@@ -28,12 +28,13 @@ async function postNewUser(username, password) {
 }
 
 // FILES
-async function createFile(name, size, fileUrl, ownerId) {
+async function createFile(name, size, fileUrl, filePath, ownerId) {
   return await prisma.file.create({
     data: {
       name,
       size,
       fileUrl,
+      filePath,
       ownerId,
     },
   });
@@ -57,7 +58,7 @@ async function readFiles() {
   return await prisma.file.findMany();
 }
 
-async function updateFile(fileId, name, size, fileUrl) {
+async function updateFile(fileId, name, size, fileUrl, filePath) {
   return await prisma.file.update({
     where: {
       id: fileId,

@@ -1,1 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+<body>
+    <h1>Edit <%= file.name %> </h1>
+    <form action="/update-file/<%= file.id %>/<%= file.filePath %>" method="POST" enctype="multipart/form-data">
+        <label for=""></label>
+        <input type="text" id="file-name" name="file_name" value="<%= file.name %>">
 
+        <label for="file-upload">Update File</label>
+        <input type="file" id="file-upload" name="uploaded_file" onchange="copyFileName()">
+
+        <div id="file-info"></div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <a href="/">back to home</a>
+    
+    <script src="/js/upload.js"></script>
+</body>
+</html>

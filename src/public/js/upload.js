@@ -8,8 +8,7 @@ function copyFileName() {
 
     // Extract name
     const fullFileName = file.name;
-    const nameWithoutExtension = fullFileName.split(".").slice(0, -1).join(".");
-    nameInput.value = nameWithoutExtension.replace(/[-_]/g, " ");
+    nameInput.value = fullFileName
 
     // Calculate size in MB
     const sizeInBytes = file.size;

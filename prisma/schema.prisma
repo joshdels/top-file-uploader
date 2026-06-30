@@ -24,8 +24,9 @@ model User {
 model File {
   id         Int        @id @default(autoincrement())
   name       String
-  size       Int
-  fileUrl    String
+  size       Decimal    @db.Decimal(10, 2) 
+  fileUrl    String?     
+  filePath   String?
   createdAt  DateTime   @default(now())
 
   ownerId Int

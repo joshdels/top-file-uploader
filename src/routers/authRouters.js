@@ -22,6 +22,6 @@ authRouter.post(
   }),
 );
 
-authRouter.get("/logout", logoutGet);
+authRouter.get("/log-out", logoutGet);
 
 export { authRouter };

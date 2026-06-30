@@ -6,16 +6,21 @@
     <title>Welcome</title>
 </head>
 <body>
-    <h1>My Cloud Drive</h1>
+    <nav>
+        <h1>My Cloud Drive</h1>
+        <a href="/auth/log-out">log-out</a>
+    </nav>
     
     <% if (files && files.length > 0) { %>
 
         <% files.map((file) => { %>
 
-            <p> <%= file.name %> | <%= file.size %> | <%= file.fileUrl %> | <%= file.createAt %> </p>
-            <button>Edit</button>
-            <a href="">edit</a>
-            <form action="/delete-file/<%= file.id %>" method="POST">
+            <p> <%= file.name %> | <%= file.size %> MB | <%= file.createAt %> </p>
+            <a href="<%= file.fileUrl %>">download</a>
+
+            <a href="/update-file/<%= file.id %>/<%= file.filePath %>">edit</a>
+        
+            <form action="/delete-file/<%= file.id %>/<%= file.filePath %>" method="POST">
                 <button type="submit">delete</button>
             </form>
 
